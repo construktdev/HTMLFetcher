@@ -1,0 +1,21 @@
+# Virtuelles Python-Environment ignorieren
+bin/
+include/
+lib/
+lib64/
+pyvenv.cfg
+
+# Alternativ: gesamten venv-Ordner, falls du ihn umbenennst:
+venv/
+.venv/
+env/
+.env/
+
+# Python-Cache & Build-Artefakte
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
