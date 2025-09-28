@@ -1,6 +1,7 @@
 import sys
 import requests
 import re
+import time
 
 def args_correct():
     if len(sys.argv) > 3 or len(sys.argv) <= 1:
@@ -32,6 +33,14 @@ def main():
     if len(sys.argv) == 3 and sys.argv[2].lower() in arg2:
         save_to_file = False
 
+    x = ""
+    
+    if not save_to_file:
+        x = "not "
+    
+    print(f"Getting {url} and {x}saving the update to file")
+    time.sleep(1)
+    
     try:
         res = requests.get(url)
     except Exception:
