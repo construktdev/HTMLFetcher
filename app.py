@@ -15,11 +15,48 @@ def match_url(url):
         return True
     else:
         return False
+    
+def get_res(url):
+    try:
+        return requests.get(url)
+    except Exception:
+        print(f"Error occured while fetching URL. Please double check that you entered the correct URL!\nYour input: {url}")
+        return 1  
+    
+def interactive():
+    url_in = input("Enter the target website: ")
+    save_in = input("Save result: [Y,n]: ")
+    
+    if not match_url(url_in):
+        print(f"Your entered URL appears to be in a wrong format!\nYour input: {url_in}")
+        return 1
+    
+    url = url_in
+    url_in = "" # Save memory ;)
+    save = True
+    x = ""
+    
+    if save_in.lower() == "n" or save_in.lower() == "no":
+        save = False
+        x = "not "
+        
+    print(f"Getting {url} and {x}saving the update to file")
+    time.sleep(1)
+    
+    res = get_res(url)
+    
+    print(f"{res.text}")
+    
+    if save:
+        with open("output.html", "w+") as out:
+            out.write(res.text)
+            print("Saved output in output.html")
+            
+    return 0        
 
 def main():
     if not args_correct():
-        print("Usage: python app.py <url> <print to file (Y, n, yes, no, true, false)>")
-        return 1
+        return interactive()
         
     if not match_url(sys.argv[1]):
         print(f"Your entered URL appears to be in a wrong format!\nYour input: {sys.argv[1]}")
@@ -30,22 +67,16 @@ def main():
     arg2 = ["n", "no", "false"]
     save_to_file = True
     
-    if len(sys.argv) == 3 and sys.argv[2].lower() in arg2:
-        save_to_file = False
-
     x = ""
     
-    if not save_to_file:
-        x = "not "
+    if len(sys.argv) == 3 and sys.argv[2].lower() in arg2:
+        save_to_file = False
+        x = "not "        
     
     print(f"Getting {url} and {x}saving the update to file")
     time.sleep(1)
     
-    try:
-        res = requests.get(url)
-    except Exception:
-        print(f"Error occured while fetching URL. Please double check that you entered the correct URL!\nYour input: {url}")
-        return 1  
+    res = get_res(url)
         
     print(f"{res.text}")
     
