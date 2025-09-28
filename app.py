@@ -26,12 +26,11 @@ def main():
         
     url = sys.argv[1]
     
-    arg2 = ["y", "n", "yes", "no", "true", "false"]
+    arg2 = ["n", "no", "false"]
     save_to_file = True
     
     if len(sys.argv) == 3 and sys.argv[2].lower() in arg2:
-        if sys.argv[2].lower() == "n" or sys.argv[2].lower() == "no" or sys.argv[2].lower() == "false":
-            save_to_file = False
+        save_to_file = False
 
     try:
         res = requests.get(url)
