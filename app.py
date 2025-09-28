@@ -35,7 +35,7 @@ def main():
     try:
         res = requests.get(url)
     except Exception:
-        print("Error occured while fetching URL. Please double check that you entered the correct URL!")
+        print(f"Error occured while fetching URL. Please double check that you entered the correct URL!\nYour input: {url}")
         return 1  
         
     print(f"{res.text}")
